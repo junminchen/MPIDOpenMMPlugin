@@ -17,7 +17,7 @@ you use `bash` or `zsh`).
 
 To install OpenMM 8.0+ into its own Conda environment called `mpid`, run
 ``` bash
-conda create -n mpid openmm>=8.0 cuda-toolkit=11.8 swig cmake -c conda-forge
+conda create -n mpid openmm>=8.0 cuda-toolkit=11.8 swig cmake mdtraj -c conda-forge
 ```
 Make sure you request the version of the CUDA toolkit supported on your
 cluster (CUDA 11.2 or later is recommended for OpenMM 8.0+). You can adjust the

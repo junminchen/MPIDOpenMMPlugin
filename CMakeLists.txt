@@ -102,7 +102,7 @@ IF(CMAKE_CUDA_COMPILER)
     # Set CUDA architectures to avoid warnings
     # Use common architectures for better compatibility (can be overridden by user)
     IF(NOT DEFINED CMAKE_CUDA_ARCHITECTURES)
-        SET(CMAKE_CUDA_ARCHITECTURES "60;70;75;80" CACHE STRING "CUDA architectures")
+        SET(CMAKE_CUDA_ARCHITECTURES "60;70;75;80;86;89" CACHE STRING "CUDA architectures")
     ENDIF()
 ELSE()
     SET(MPID_BUILD_CUDA_LIB OFF CACHE BOOL "Build implementation for CUDA")

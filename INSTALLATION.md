@@ -18,7 +18,7 @@ This guide provides instructions for installing the MPIDOpenMMPlugin for use wit
 We strongly recommend using Conda to manage dependencies:
 
 ```bash
-conda create -n mpid openmm>=8.0 cuda-toolkit=11.8 swig cmake -c conda-forge
+conda create -n mpid openmm>=8.0 cuda-toolkit=11.8 swig cmake mdtraj -c conda-forge
 conda activate mpid
 ```
 
