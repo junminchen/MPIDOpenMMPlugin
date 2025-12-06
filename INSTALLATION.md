@@ -18,9 +18,11 @@ This guide provides instructions for installing the MPIDOpenMMPlugin for use wit
 We strongly recommend using Conda to manage dependencies:
 
 ```bash
-conda create -n mpid openmm>=8.0 cuda-toolkit swig cmake -c conda-forge
+conda create -n mpid openmm>=8.0 cuda-toolkit=11.8 swig cmake -c conda-forge
 conda activate mpid
 ```
+
+**Note**: Adjust the cuda-toolkit version (e.g., cuda-toolkit=12.0) based on your GPU and driver compatibility. CUDA 11.2 or later is recommended for OpenMM 8.0+.
 
 ### 2. Clone the Repository
 

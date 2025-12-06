@@ -17,12 +17,14 @@ you use `bash` or `zsh`).
 
 To install OpenMM 8.0+ into its own Conda environment called `mpid`, run
 ``` bash
-conda create -n mpid openmm>=8.0 cuda-toolkit swig cmake -c conda-forge
+conda create -n mpid openmm>=8.0 cuda-toolkit=11.8 swig cmake -c conda-forge
 ```
 Make sure you request the version of the CUDA toolkit supported on your
-cluster. OpenMM 8.0+ requires CMake 3.17 or later and uses modern CMake CUDA
-support instead of the deprecated FindCUDA module. This example uses GCC to
-build; the speed of the C++ compiler is irrelevant, because the CUDA code is
+cluster (CUDA 11.2 or later is recommended for OpenMM 8.0+). You can adjust the
+cuda-toolkit version (e.g., cuda-toolkit=12.0) based on your GPU and driver
+compatibility. OpenMM 8.0+ requires CMake 3.17 or later and uses modern CMake
+CUDA support instead of the deprecated FindCUDA module. This example uses GCC
+to build; the speed of the C++ compiler is irrelevant, because the CUDA code is
 the only fast code available in this plugin.  Although the reference platform
 will run, it is very slow and designed for correctness.
 
