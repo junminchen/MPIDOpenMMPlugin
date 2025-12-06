@@ -3,12 +3,17 @@ PROJECT(MPIDOpenMMPlugin)
 # OpenMM MPID Plugin
 #----------------------------------------------------
 
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.17)
 
 # We need to know where OpenMM is installed so we can access the headers and libraries.
 SET(OPENMM_DIR "/usr/local/openmm" CACHE PATH "Where OpenMM is installed")
 INCLUDE_DIRECTORIES("${OPENMM_DIR}/include")
 LINK_DIRECTORIES("${OPENMM_DIR}/lib" "${OPENMM_DIR}/lib/plugins")
+
+# Set C++ standard
+SET(CMAKE_CXX_STANDARD 14)
+SET(CMAKE_CXX_STANDARD_REQUIRED ON)
+SET(CMAKE_CXX_EXTENSIONS OFF)
 
 # set flags for linking on mac
 IF(APPLE)
@@ -86,12 +91,22 @@ ADD_SUBDIRECTORY(platforms/reference)
 
 SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}")
 
-FIND_PACKAGE(CUDA QUIET)
-IF(CUDA_FOUND)
+# Enable CUDA language support
+INCLUDE(CheckLanguage)
+CHECK_LANGUAGE(CUDA)
+IF(CMAKE_CUDA_COMPILER)
+    ENABLE_LANGUAGE(CUDA)
     SET(MPID_BUILD_CUDA_LIB ON CACHE BOOL "Build implementation for CUDA")
-ELSE(CUDA_FOUND)
+    SET(CMAKE_CUDA_STANDARD 14)
+    SET(CMAKE_CUDA_STANDARD_REQUIRED ON)
+    # Set CUDA architectures to avoid warnings
+    # Use common architectures for better compatibility (can be overridden by user)
+    IF(NOT DEFINED CMAKE_CUDA_ARCHITECTURES)
+        SET(CMAKE_CUDA_ARCHITECTURES "60;70;75;80;86;89" CACHE STRING "CUDA architectures")
+    ENDIF()
+ELSE()
     SET(MPID_BUILD_CUDA_LIB OFF CACHE BOOL "Build implementation for CUDA")
-ENDIF(CUDA_FOUND)
+ENDIF()
 IF(MPID_BUILD_CUDA_LIB)
     ADD_SUBDIRECTORY(platforms/cuda)
 ENDIF(MPID_BUILD_CUDA_LIB)
